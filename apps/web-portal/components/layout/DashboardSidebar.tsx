@@ -18,10 +18,10 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useState } from "react"
 
 const sidebarItems = [
-  { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-  { icon: Users, label: "Employees", href: "/dashboard/employees" },
-  { icon: MessageSquare, label: "AI Chat", href: "/chat" },
-  { icon: FileUp, label: "Resume Upload", href: "/dashboard/resumes" },
+  { icon: LayoutDashboard, label: "แดชบอร์ด", href: "/dashboard" },
+  { icon: Users, label: "พนักงาน", href: "/dashboard/employees" },
+  { icon: MessageSquare, label: "แชท AI", href: "/chat" },
+  { icon: FileUp, label: "อัปโหลด Resume", href: "/dashboard/resumes" },
 ]
 
 export function DashboardSidebar() {
@@ -74,7 +74,7 @@ export function DashboardSidebar() {
             onClick={handleLogout}
         >
           <LogOut className="h-4 w-4" />
-          Logout
+          ออกจากระบบ
         </Button>
       </div>
     </div>

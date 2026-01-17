@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
-import { UploadCloud, CheckCircle, AlertCircle } from "lucide-react"
+import { UploadCloud, CheckCircle, AlertCircle, FileText } from "lucide-react"
 
 interface ParsingResult {
   id: string
@@ -38,14 +38,13 @@ export default function ResumeUploadPage() {
     if (!file) return
 
     setIsUploading(true)
-    setProgress(10) // Start fake progress
+    setProgress(10)
     setError(null)
 
     const formData = new FormData()
     formData.append("file", file)
 
     try {
-      // Simulate progress ticks
       const interval = setInterval(() => {
         setProgress((prev) => (prev < 90 ? prev + 10 : prev))
       }, 500)
@@ -57,11 +56,11 @@ export default function ResumeUploadPage() {
       clearInterval(interval)
       setProgress(100)
       setResult(response.data)
-      setFile(null) // Reset file
+      setFile(null)
       
     } catch (err: any) {
       console.error(err)
-      setError("Failed to upload/parse resume. Please try again.")
+      setError("อัปโหลดไม่สำเร็จ กรุณาลองใหม่อีกครั้ง")
     } finally {
       setIsUploading(false)
     }
@@ -69,21 +68,27 @@ export default function ResumeUploadPage() {
 
   return (
     <div className="space-y-6 max-w-4xl">
-      <h1 className="text-3xl font-bold">Resume Parsing</h1>
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">วิเคราะห์ Resume</h1>
+        <p className="text-muted-foreground mt-1">อัปโหลดไฟล์ Resume (PDF) เพื่อให้ AI ดึงข้อมูลและทักษะโดยอัตโนมัติ</p>
+      </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         {/* Upload Card */}
         <Card>
           <CardHeader>
-            <CardTitle>Upload Resume (PDF)</CardTitle>
-            <CardDescription>AI will extract candidate info and skills.</CardDescription>
+            <CardTitle className="flex items-center gap-2">
+                <UploadCloud className="h-5 w-5" />
+                อัปโหลดไฟล์
+            </CardTitle>
+            <CardDescription>รองรับไฟล์ PDF เท่านั้น</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex flex-col gap-4 items-center justify-center border-2 border-dashed rounded-lg p-8 bg-gray-50/50 hover:bg-gray-50 transition-colors">
-               <UploadCloud className="h-10 w-10 text-muted-foreground" />
+            <div className="flex flex-col gap-4 items-center justify-center border-2 border-dashed rounded-lg p-8 bg-muted/30 hover:bg-muted/50 transition-colors">
+               <FileText className="h-10 w-10 text-muted-foreground" />
                <div className="text-center space-y-2">
-                   <Label htmlFor="resume-upload" className="cursor-pointer text-blue-600 hover:underline">
-                       Choose File
+                   <Label htmlFor="resume-upload" className="cursor-pointer text-primary hover:underline font-medium">
+                       เลือกไฟล์
                    </Label>
                    <Input 
                         id="resume-upload" 
@@ -92,14 +97,14 @@ export default function ResumeUploadPage() {
                         className="hidden" 
                         onChange={handleFileChange}
                    />
-                   <p className="text-sm text-gray-500">{file ? file.name : "No file selected"}</p>
+                   <p className="text-sm text-muted-foreground">{file ? file.name : "ยังไม่ได้เลือกไฟล์"}</p>
                </div>
             </div>
 
             {isUploading && (
                 <div className="space-y-2">
                     <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>Processing with AI...</span>
+                        <span>กำลังประมวลผลด้วย AI...</span>
                         <span>{progress}%</span>
                     </div>
                     <Progress value={progress} />
@@ -107,52 +112,52 @@ export default function ResumeUploadPage() {
             )}
             
             {error && (
-                <div className="flex items-center gap-2 text-red-500 text-sm bg-red-50 p-3 rounded">
+                <div className="flex items-center gap-2 text-destructive text-sm bg-destructive/10 p-3 rounded-md">
                     <AlertCircle className="h-4 w-4" />
                     {error}
                 </div>
             )}
 
             <Button onClick={handleUpload} disabled={!file || isUploading} className="w-full">
-              {isUploading ? "Uploading..." : "Start Parsing"}
+              {isUploading ? "กำลังอัปโหลด..." : "เริ่มวิเคราะห์"}
             </Button>
           </CardContent>
         </Card>
 
         {/* Results Card */}
         {result && (
-            <Card className="border-green-200 bg-green-50/30">
+            <Card className="border-green-500/30 bg-green-500/5">
                 <CardHeader>
-                    <div className="flex items-center gap-2 text-green-700">
+                    <div className="flex items-center gap-2 text-green-600">
                         <CheckCircle className="h-5 w-5" />
-                        <CardTitle>Extraction Complete</CardTitle>
+                        <CardTitle>วิเคราะห์สำเร็จ</CardTitle>
                     </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div>
-                        <Label>Full Name</Label>
-                        <p className="text-lg font-medium">{result.candidate.full_name || "N/A"}</p>
+                        <Label className="text-muted-foreground">ชื่อ-นามสกุล</Label>
+                        <p className="text-lg font-medium">{result.candidate.full_name || "ไม่พบข้อมูล"}</p>
                     </div>
                     <div>
-                        <Label>Email</Label>
-                        <p className="font-mono text-sm">{result.candidate.email || "N/A"}</p>
+                        <Label className="text-muted-foreground">อีเมล</Label>
+                        <p className="font-mono text-sm">{result.candidate.email || "ไม่พบข้อมูล"}</p>
                     </div>
                     <div>
-                        <Label>Experience</Label>
-                        <p>{result.candidate.experience_years} Years (Estimated)</p>
+                        <Label className="text-muted-foreground">ประสบการณ์ทำงาน</Label>
+                        <p>{result.candidate.experience_years} ปี (ประมาณการ)</p>
                     </div>
                      <div>
-                        <Label className="mb-2 block">Detected Skills</Label>
+                        <Label className="text-muted-foreground mb-2 block">ทักษะที่พบ</Label>
                         <div className="flex flex-wrap gap-2">
                             {result.candidate.skills.map((skill, i) => (
-                                <span key={i} className="px-2 py-1 bg-white border rounded text-xs font-medium shadow-sm">
+                                <span key={i} className="px-2 py-1 bg-background border rounded text-xs font-medium shadow-sm">
                                     {skill}
                                 </span>
                             ))}
                         </div>
                     </div>
-                     <div className="pt-4 border-t text-xs text-gray-400">
-                        Result ID: {result.id}
+                     <div className="pt-4 border-t text-xs text-muted-foreground">
+                        รหัสผลลัพธ์: {result.id}
                     </div>
                 </CardContent>
             </Card>

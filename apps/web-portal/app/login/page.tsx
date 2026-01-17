@@ -24,8 +24,8 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { ArrowRight, Bot, CheckCircle2 } from "lucide-react"
 
 const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(1, "Password is required"),
+  email: z.string().email({ message: "กรุณากรอกอีเมลให้ถูกต้อง" }),
+  password: z.string().min(1, "กรุณากรอกรหัสผ่าน"),
 })
 
 export default function LoginPage() {
@@ -64,7 +64,7 @@ export default function LoginPage() {
       
     } catch (err: any) {
       console.error(err)
-      setError(err.response?.data?.detail || "Login failed. Please check your credentials.")
+      setError(err.response?.data?.detail || "เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจสอบข้อมูลอีกครั้ง")
     } finally {
       setIsLoading(false)
     }
@@ -85,22 +85,22 @@ export default function LoginPage() {
             </div>
             
             <h1 className="text-4xl font-extrabold leading-tight mb-6">
-                Manage your workforce with <br/>
-                <span className="text-primary">Artificial Intelligence</span>
+                จัดการทรัพยากรบุคคล <br/>
+                ด้วย <span className="text-primary">ปัญญาประดิษฐ์</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-md">
-                Experience the next generation of HR management. Automated resume parsing, intelligent policy chat, and seamless employee data management.
+                สัมผัสประสบการณ์ระบบ HR รุ่นใหม่ วิเคราะห์ Resume อัตโนมัติ ตอบคำถามนโยบายฉับไว และจัดการข้อมูลพนักงานได้อย่างมีประสิทธิภาพ
             </p>
         </div>
 
         <div className="relative z-10 space-y-6">
-            <FeatureItem text="AI-Powered Resume Analysis" />
-            <FeatureItem text="Instant Policy Answers (RAG)" />
-            <FeatureItem text="Secure Employee Database" />
+            <FeatureItem text="วิเคราะห์ Resume ด้วย AI" />
+            <FeatureItem text="ตอบคำถามนโยบาย (RAG)" />
+            <FeatureItem text="ฐานข้อมูลพนักงานปลอดภัย" />
         </div>
 
         <div className="relative z-10 text-sm text-muted-foreground">
-            © 2024 Smart HR Assistant. All rights reserved.
+            © 2024 Smart HR Assistant สงวนลิขสิทธิ์
         </div>
       </div>
 
@@ -112,15 +112,14 @@ export default function LoginPage() {
 
         <div className="w-full max-w-sm space-y-8">
             <div className="text-center lg:text-left">
-                <h2 className="text-2xl font-bold tracking-tight">Welcome back</h2>
+                <h2 className="text-2xl font-bold tracking-tight">ยินดีต้อนรับกลับ</h2>
                 <p className="text-sm text-muted-foreground mt-2">
-                    Enter your credentials to access your account
+                    กรอกข้อมูลเพื่อเข้าสู่ระบบ
                 </p>
             </div>
 
             <Card className="border-border/50 shadow-xl bg-card/50 backdrop-blur-sm">
                 <CardHeader className="space-y-1">
-                    {/* <CardTitle className="text-2xl">Login</CardTitle> */}
                 </CardHeader>
                 <CardContent>
                 <Form {...form}>
@@ -130,7 +129,7 @@ export default function LoginPage() {
                         name="email"
                         render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel>อีเมล</FormLabel>
                             <FormControl>
                             <Input placeholder="name@example.com" {...field} className="h-11" />
                             </FormControl>
@@ -144,9 +143,9 @@ export default function LoginPage() {
                         render={({ field }) => (
                         <FormItem>
                             <div className="flex items-center justify-between">
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel>รหัสผ่าน</FormLabel>
                                 <Link href="#" className="text-xs text-primary hover:underline">
-                                    Forgot password?
+                                    ลืมรหัสผ่าน?
                                 </Link>
                             </div>
                             <FormControl>
@@ -164,21 +163,16 @@ export default function LoginPage() {
                     )}
 
                     <Button type="submit" className="w-full h-11 text-base shadow-lg hover:shadow-xl transition-all" disabled={isLoading}>
-                        {isLoading ? "Authenticating..." : "Sign In"}
+                        {isLoading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
                         {!isLoading && <ArrowRight className="ml-2 h-4 w-4" />}
                     </Button>
                     </form>
                 </Form>
                 </CardContent>
-                {/* <CardFooter className="flex justify-center border-t p-4">
-                    <p className="text-xs text-muted-foreground">
-                        Don't have an account? <Link href="#" className="underline text-primary">Contact Admin</Link>
-                    </p>
-                </CardFooter> */}
             </Card>
 
             <div className="text-center text-xs text-muted-foreground">
-                <p>Default Admin: <strong>admin@example.com</strong> / <strong>1234</strong></p>
+                <p>บัญชีตัวอย่าง: <strong>admin@example.com</strong> / <strong>1234</strong></p>
             </div>
         </div>
       </div>
