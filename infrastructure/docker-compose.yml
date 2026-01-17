@@ -75,7 +75,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - api-server
-      # - web-portal (รอ Phase 3 ค่อยเปิด)
+      - web-portal
     networks:
       - hr_network
 
@@ -83,15 +83,15 @@ services:
   # 4. Frontend Service (Next.js)
   # (Comment ไว้ก่อน)
   # ----------------------------------------------------------------
-  # web-portal:
-  #   build:
-  #     context: ../apps/web-portal
-  #     dockerfile: Dockerfile
-  #   container_name: hr_web_portal
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - hr_network
+  web-portal:
+    build:
+      context: ../apps/web-portal
+      dockerfile: Dockerfile
+    container_name: hr_web_portal
+    ports:
+      - "3000:3000"
+    networks:
+      - hr_network
 
 networks:
   hr_network:
