@@ -82,3 +82,28 @@ def ingest_document(file_path: str, doc_type: str, session: Session) -> Optional
         print(f"Error ingesting document: {e}")
         session.rollback()
         return None
+
+def search_documents(query: str, session: Session, limit: int = 5) -> List[DocumentChunk]:
+    """
+    Searches for document chunks relevant to the query using vector similarity.
+    """
+    try:
+        # 1. Generate Query Embedding
+        query_embedding = generate_embedding(query)
+        if not query_embedding:
+            print("Error: Could not generate embedding for query.")
+            return []
+
+        # 2. Perform Vector Search (Cosine Distance)
+        # Using pgvector's cosine distance operator (<=>)
+        # Order by distance ASC (nearest neighbors)
+        stmt = select(DocumentChunk).order_by(
+            DocumentChunk.embedding.cosine_distance(query_embedding)
+        ).limit(limit)
+        
+        results = session.execute(stmt).scalars().all()
+        return results
+
+    except Exception as e:
+        print(f"Error searching documents: {e}")
+        return []

@@ -7,7 +7,7 @@ import sys
 # Add app to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from app.api.v1.endpoints import auth
+from app.api.v1.endpoints import auth, users, chat, resumes
 
 app = FastAPI(
     title="Smart HR Assistant API",
@@ -15,23 +15,13 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# CORS
-origins = [
-    "http://localhost",
-    "http://localhost:3000",
-    "http://localhost:8080",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# ...
 
 # Include Routers
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
+app.include_router(users.router, prefix="/api/v1/users", tags=["users"])
+app.include_router(chat.router, prefix="/api/v1/chat", tags=["chat"])
+app.include_router(resumes.router, prefix="/api/v1/resumes", tags=["resumes"])
 
 @app.get("/")
 def read_root():
