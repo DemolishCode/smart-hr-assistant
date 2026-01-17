@@ -219,10 +219,6 @@ Interactive chat interface with RAG-powered responses about HR policies.
 
 Drag-and-drop PDF upload with AI-powered skill extraction and parsing.
 
-## 📄 License
-
-MIT License - See [LICENSE](LICENSE) for details.
-
 ---
 
 Built with ❤️ using FastAPI, Next.js, and LangChain
