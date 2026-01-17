@@ -198,7 +198,7 @@ python scripts/test_rag_flow.py
 | proxy      | 80   | Nginx reverse proxy      |
 | web-portal | 3000 | Next.js frontend         |
 | api-server | 8000 | FastAPI backend          |
-| db         | 5433 | PostgreSQL with pgvector |
+| db         | 5432 | PostgreSQL with pgvector |
 | adminer    | 8080 | Database admin UI        |
 
 ## 📸 Screenshots
