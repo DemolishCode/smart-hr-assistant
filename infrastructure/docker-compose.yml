@@ -10,7 +10,7 @@ services:
     container_name: hr_smart_db
     restart: always
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       # ดึงค่า Config มาจากไฟล์ .env ของ Backend โดยตรง
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
