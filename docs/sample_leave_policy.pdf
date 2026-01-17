@@ -1,0 +1,57 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 500 >>
+stream
+BT
+/F1 16 Tf
+200 750 Td
+(COMPANY LEAVE POLICY) Tj
+/F1 12 Tf
+50 700 Td
+(1. Annual Leave) Tj
+50 680 Td
+(All employees are entitled to 15 days of annual leave per year.) Tj
+50 650 Td
+(2. Sick Leave) Tj
+50 630 Td
+(Employees can take up to 10 days of sick leave with medical certificate.) Tj
+50 600 Td
+(3. Maternity Leave) Tj
+50 580 Td
+(Female employees are entitled to 90 days of maternity leave.) Tj
+50 550 Td
+(4. Work From Home Policy) Tj
+50 530 Td
+(Employees can work from home up to 2 days per week with manager approval.) Tj
+50 500 Td
+(5. Overtime) Tj
+50 480 Td
+(Overtime work requires pre-approval and will be compensated at 1.5x rate.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000266 00000 n 
+0000000819 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+898
+%%EOF
