@@ -1,0 +1,100 @@
+# ------------------------------------------------------
+# 1. Global / OS Files (ไฟล์ขยะของระบบ)
+# ------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+ROADMAP.md
+
+# ------------------------------------------------------
+# 2. Environment Variables & Secrets (สำคัญมาก ห้ามหลุด!)
+# ------------------------------------------------------
+.env
+.env.*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+.infrastructure/.env
+
+# ------------------------------------------------------
+# 3. Python (Backend & AI)
+# ------------------------------------------------------
+# Byte-compiled / Optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments (Folder ที่เราสร้าง venv)
+venv/
+.venv/
+env/
+ENV/
+
+# Distribution / Packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Unit Test / Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Database (ถ้าเผลอสร้าง SQLite)
+*.sqlite3
+*.db
+
+# ------------------------------------------------------
+# 4. Node.js / Next.js (Frontend)
+# ------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+
+# Next.js build output
+.next/
+out/
+
+# TypeScript
+*.tsbuildinfo
+
+# ------------------------------------------------------
+# 5. AI & Large Files (กันไฟล์โมเดลหลุดขึ้น Git)
+# ------------------------------------------------------
+# Vector DB Local Data (ถ้าเกิดรัน local ไม่ได้ผ่าน docker)
+chroma_db/
+lance_db/
+
+# Model Weights (ไฟล์โมเดลขนาดใหญ่ ห้ามขึ้นเด็ดขาด)
+*.bin
+*.gguf
+*.pt
+*.pth
+
+# Dataset / Temp Files
+*.csv
+*.jsonl
+
+# ------------------------------------------------------
+# 6. Docker & Infrastructure
+# ------------------------------------------------------
+# Local data volumes (ที่เรา mount ไว้ใน docker-compose)
+pgdata/
+docker-data/
+
+# ------------------------------------------------------
+# 7. Documentation (Optional)
+# ------------------------------------------------------
+# ถ้าเราอยากเก็บไฟล์ตัวอย่างไว้ใน docs/ ก็ไม่ต้อง ignore
+# แต่ถ้ามีไฟล์ข้อมูลจริงที่มีความลับ ให้ ignore เฉพาะไฟล์นั้น
+docs/private/

@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------
+  # 1. Database Service (PostgreSQL + pgvector)
+  # หัวใจสำคัญของระบบ เก็บทั้งข้อมูลพนักงานและ Vector ของ AI
+  # ----------------------------------------------------------------
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: hr_smart_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      # ดึงค่า Config มาจากไฟล์ .env ของ Backend โดยตรง
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_DB=${POSTGRES_DB:-hr_db}
+    volumes:
+      # Map ข้อมูลออกมาเก็บไว้ที่โฟลเดอร์ infrastructure/pgdata
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - hr_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ----------------------------------------------------------------
+  # 2. Database Viewer (Optional but Recommended)
+  # แถมตัวจัดการ Database ผ่านเว็บให้ (Adminer) จะได้ไม่ต้องพิมพ์ SQL ดิบ
+  # เข้าใช้งานได้ที่: http://localhost:8080
+  # ----------------------------------------------------------------
+  adminer:
+    image: adminer
+    container_name: hr_db_viewer
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+    networks:
+      - hr_network
+    depends_on:
+      - db
+
+  # ----------------------------------------------------------------
+  # 3. Backend Service (FastAPI)
+  # (Comment ไว้ก่อน เดี๋ยวเรามาเปิดใช้ตอนสร้าง Dockerfile เสร็จ)
+  # ----------------------------------------------------------------
+  # api-server:
+  #   build:
+  #     context: ../apps/api-server
+  #     dockerfile: Dockerfile
+  #   container_name: hr_api_server
+  #   volumes:
+  #     - ../apps/api-server:/app
+  #   ports:
+  #     - "8000:8000"
+  #   env_file:
+  #     - ../apps/api-server/.env
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - hr_network
+
+  # ----------------------------------------------------------------
+  # 4. Frontend Service (Next.js)
+  # (Comment ไว้ก่อน)
+  # ----------------------------------------------------------------
+  # web-portal:
+  #   build:
+  #     context: ../apps/web-portal
+  #     dockerfile: Dockerfile
+  #   container_name: hr_web_portal
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - hr_network
+
+networks:
+  hr_network:
+    driver: bridge
