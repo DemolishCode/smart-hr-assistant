@@ -1,5 +1,7 @@
 "use client"
 
+export const dynamic = 'force-dynamic'
+
 import ChatWindow from "@/components/chat/ChatWindow"
 import { Button } from "@/components/ui/button"
 import { useAuthStore } from "@/stores/useAuthStore"

@@ -1,0 +1,147 @@
+{
+  "common": {
+    "appName": "Smart HR",
+    "login": "Login",
+    "logout": "Logout",
+    "getStarted": "Get Started",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "search": "Search",
+    "noData": "No data available"
+  },
+  "landing": {
+    "heroTitle": "Elevate Your HR with",
+    "heroHighlight": "Artificial Intelligence",
+    "heroDescription": "Automate resume parsing, get instant policy answers, and manage your workforce efficiently with our next-generation HR assistant.",
+    "features": {
+      "chatbot": {
+        "title": "AI Chatbot",
+        "description": "Instantly answers employee questions about leave, benefits, and company policies using RAG technology."
+      },
+      "resume": {
+        "title": "Smart Resume Parsing",
+        "description": "Upload PDF resumes and let AI automatically extract skills, experience, and candidate details."
+      },
+      "dashboard": {
+        "title": "Employee Dashboard",
+        "description": "Centralized workforce data with role-based access control and real-time management."
+      }
+    },
+    "footer": "© 2024 Smart HR Assistant. All rights reserved."
+  },
+  "login": {
+    "welcomeBack": "Welcome back",
+    "enterCredentials": "Enter your credentials to access your account",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign In",
+    "authenticating": "Authenticating...",
+    "loginFailed": "Login failed. Please check your credentials.",
+    "sampleAccount": "Sample Account",
+    "features": {
+      "resume": "AI-Powered Resume Analysis",
+      "policy": "Instant Policy Answers (RAG)",
+      "secure": "Secure Employee Database"
+    },
+    "heroTitle": "Manage your workforce with",
+    "heroHighlight": "Artificial Intelligence",
+    "heroDescription": "Experience the next generation of HR management. Automated resume parsing, intelligent policy chat, and seamless employee data management."
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "employees": "Employees",
+    "aiChat": "AI Chat",
+    "resumeUpload": "Resume Upload",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "hello": "Hello",
+    "welcomeMessage": "Welcome to Smart HR Assistant",
+    "yourInfo": "Your Information",
+    "email": "Email",
+    "role": "Role",
+    "department": "Department",
+    "position": "Position",
+    "quickActions": {
+      "manageEmployees": {
+        "title": "Manage Employees",
+        "description": "View and manage all employee data"
+      },
+      "chatAI": {
+        "title": "Chat with AI",
+        "description": "Ask about policies and general questions"
+      },
+      "analyzeResume": {
+        "title": "Analyze Resume",
+        "description": "Upload and extract data from resumes"
+      }
+    },
+    "backToLogin": "Back to Login",
+    "loadingUser": "Loading user data..."
+  },
+  "employees": {
+    "title": "Employee List",
+    "description": "View and manage all employees in the system",
+    "allEmployees": "All Employees",
+    "total": "Total",
+    "people": "people",
+    "table": {
+      "no": "No.",
+      "fullName": "Full Name",
+      "email": "Email",
+      "department": "Department",
+      "role": "Role",
+      "status": "Status"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "loading": "Loading data..."
+  },
+  "resumes": {
+    "title": "Resume Parsing",
+    "description": "Upload a Resume (PDF) to let AI extract information and skills automatically",
+    "uploadFile": "Upload File",
+    "pdfOnly": "PDF files only",
+    "chooseFile": "Choose File",
+    "noFileSelected": "No file selected",
+    "processing": "Processing with AI...",
+    "uploadFailed": "Upload failed. Please try again.",
+    "uploading": "Uploading...",
+    "startParsing": "Start Parsing",
+    "result": {
+      "title": "Extraction Complete",
+      "fullName": "Full Name",
+      "email": "Email",
+      "experience": "Work Experience",
+      "years": "years",
+      "estimated": "(Estimated)",
+      "detectedSkills": "Detected Skills",
+      "resultId": "Result ID",
+      "notFound": "Not found"
+    }
+  },
+  "chat": {
+    "title": "HR Assistant AI",
+    "description": "Ask questions about policies or general information",
+    "noMessages": "No messages yet",
+    "startConversation": "Start a conversation by typing a question below",
+    "thinking": "AI is thinking...",
+    "placeholder": "Type your message...",
+    "error": "Sorry, an error occurred. Please try again."
+  },
+  "roles": {
+    "ADMIN": "Administrator",
+    "HR": "Human Resources",
+    "MANAGER": "Manager",
+    "EMPLOYEE": "Employee"
+  }
+}

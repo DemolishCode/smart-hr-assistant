@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { SendHorizontal, Bot, User } from "lucide-react"
+import { SendHorizontal, Bot } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -9,6 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Card } from "@/components/ui/card"
 import { MessageBubble } from "./MessageBubble"
 import { apiClient } from "@/lib/api-client"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 interface Message {
   role: "user" | "assistant"
@@ -19,6 +20,7 @@ export default function ChatWindow() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const { t } = useLanguage()
   
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -45,7 +47,7 @@ export default function ChatWindow() {
       setMessages((prev) => [...prev, aiMsg])
     } catch (error) {
       console.error("Chat error:", error)
-      const errorMsg: Message = { role: "assistant", content: "ขออภัย เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง" }
+      const errorMsg: Message = { role: "assistant", content: t.chat.error }
       setMessages((prev) => [...prev, errorMsg])
     } finally {
       setIsLoading(false)
@@ -60,8 +62,8 @@ export default function ChatWindow() {
                 <Bot className="h-5 w-5" />
             </div>
             <div>
-                <h2 className="text-lg font-semibold">HR Assistant AI</h2>
-                <p className="text-sm text-muted-foreground">ถามคำถามเกี่ยวกับนโยบายหรือข้อมูลทั่วไปได้เลย</p>
+                <h2 className="text-lg font-semibold">{t.chat.title}</h2>
+                <p className="text-sm text-muted-foreground">{t.chat.description}</p>
             </div>
         </div>
       </div>
@@ -71,8 +73,8 @@ export default function ChatWindow() {
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center h-[300px] text-muted-foreground text-center">
               <Bot className="h-12 w-12 mb-4 opacity-50" />
-              <p className="font-medium">ยังไม่มีข้อความ</p>
-              <p className="text-sm">เริ่มต้นสนทนาโดยพิมพ์คำถามด้านล่าง</p>
+              <p className="font-medium">{t.chat.noMessages}</p>
+              <p className="text-sm">{t.chat.startConversation}</p>
             </div>
           )}
           
@@ -83,7 +85,7 @@ export default function ChatWindow() {
           {isLoading && (
             <div className="flex items-center gap-2 p-4 text-sm text-muted-foreground animate-pulse">
               <Bot className="h-4 w-4" />
-              AI กำลังคิดคำตอบ...
+              {t.chat.thinking}
             </div>
           )}
         </div>
@@ -91,7 +93,7 @@ export default function ChatWindow() {
 
       <div className="p-4 border-t bg-background/80 backdrop-blur-sm flex gap-2">
         <Input 
-          placeholder="พิมพ์ข้อความของคุณ..." 
+          placeholder={t.chat.placeholder}
           value={input} 
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}

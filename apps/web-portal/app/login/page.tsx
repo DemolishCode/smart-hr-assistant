@@ -1,5 +1,7 @@
 "use client"
 
+export const dynamic = 'force-dynamic'
+
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -17,22 +19,25 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { apiClient } from "@/lib/api-client"
 import { useAuthStore } from "@/stores/useAuthStore"
 import { ModeToggle } from "@/components/mode-toggle"
-import { ArrowRight, Bot, CheckCircle2 } from "lucide-react"
-
-const formSchema = z.object({
-  email: z.string().email({ message: "กรุณากรอกอีเมลให้ถูกต้อง" }),
-  password: z.string().min(1, "กรุณากรอกรหัสผ่าน"),
-})
+import { LanguageSwitcher } from "@/components/language-switcher"
+import { useLanguage } from "@/contexts/LanguageContext"
+import { ArrowRight, CheckCircle2 } from "lucide-react"
 
 export default function LoginPage() {
   const router = useRouter()
   const login = useAuthStore((state) => state.login)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const { t } = useLanguage()
+
+  const formSchema = z.object({
+    email: z.string().email({ message: t.login.loginFailed }),
+    password: z.string().min(1, t.login.loginFailed),
+  })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,7 +69,7 @@ export default function LoginPage() {
       
     } catch (err: any) {
       console.error(err)
-      setError(err.response?.data?.detail || "เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจสอบข้อมูลอีกครั้ง")
+      setError(err.response?.data?.detail || t.login.loginFailed)
     } finally {
       setIsLoading(false)
     }
@@ -81,47 +86,46 @@ export default function LoginPage() {
                 <div className="h-10 w-10 bg-primary rounded-xl flex items-center justify-center text-primary-foreground font-bold text-xl shadow-lg">
                     H
                 </div>
-                <span className="text-2xl font-bold tracking-tight">Smart HR</span>
+                <span className="text-2xl font-bold tracking-tight">{t.common.appName}</span>
             </div>
             
             <h1 className="text-4xl font-extrabold leading-tight mb-6">
-                จัดการทรัพยากรบุคคล <br/>
-                ด้วย <span className="text-primary">ปัญญาประดิษฐ์</span>
+                {t.login.heroTitle} <br/>
+                <span className="text-primary">{t.login.heroHighlight}</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-md">
-                สัมผัสประสบการณ์ระบบ HR รุ่นใหม่ วิเคราะห์ Resume อัตโนมัติ ตอบคำถามนโยบายฉับไว และจัดการข้อมูลพนักงานได้อย่างมีประสิทธิภาพ
+                {t.login.heroDescription}
             </p>
         </div>
 
         <div className="relative z-10 space-y-6">
-            <FeatureItem text="วิเคราะห์ Resume ด้วย AI" />
-            <FeatureItem text="ตอบคำถามนโยบาย (RAG)" />
-            <FeatureItem text="ฐานข้อมูลพนักงานปลอดภัย" />
+            <FeatureItem text={t.login.features.resume} />
+            <FeatureItem text={t.login.features.policy} />
+            <FeatureItem text={t.login.features.secure} />
         </div>
 
         <div className="relative z-10 text-sm text-muted-foreground">
-            © 2024 Smart HR Assistant สงวนลิขสิทธิ์
+            {t.landing.footer}
         </div>
       </div>
 
       {/* Right Side - Login Form */}
       <div className="flex-1 flex flex-col items-center justify-center p-8 relative">
-        <div className="absolute top-8 right-8">
+        <div className="absolute top-8 right-8 flex items-center gap-2">
+            <LanguageSwitcher />
             <ModeToggle />
         </div>
 
         <div className="w-full max-w-sm space-y-8">
             <div className="text-center lg:text-left">
-                <h2 className="text-2xl font-bold tracking-tight">ยินดีต้อนรับกลับ</h2>
+                <h2 className="text-2xl font-bold tracking-tight">{t.login.welcomeBack}</h2>
                 <p className="text-sm text-muted-foreground mt-2">
-                    กรอกข้อมูลเพื่อเข้าสู่ระบบ
+                    {t.login.enterCredentials}
                 </p>
             </div>
 
             <Card className="border-border/50 shadow-xl bg-card/50 backdrop-blur-sm">
-                <CardHeader className="space-y-1">
-                </CardHeader>
-                <CardContent>
+                <CardContent className="pt-6">
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <FormField
@@ -129,7 +133,7 @@ export default function LoginPage() {
                         name="email"
                         render={({ field }) => (
                         <FormItem>
-                            <FormLabel>อีเมล</FormLabel>
+                            <FormLabel>{t.login.email}</FormLabel>
                             <FormControl>
                             <Input placeholder="name@example.com" {...field} className="h-11" />
                             </FormControl>
@@ -143,9 +147,9 @@ export default function LoginPage() {
                         render={({ field }) => (
                         <FormItem>
                             <div className="flex items-center justify-between">
-                                <FormLabel>รหัสผ่าน</FormLabel>
+                                <FormLabel>{t.login.password}</FormLabel>
                                 <Link href="#" className="text-xs text-primary hover:underline">
-                                    ลืมรหัสผ่าน?
+                                    {t.login.forgotPassword}
                                 </Link>
                             </div>
                             <FormControl>
@@ -163,7 +167,7 @@ export default function LoginPage() {
                     )}
 
                     <Button type="submit" className="w-full h-11 text-base shadow-lg hover:shadow-xl transition-all" disabled={isLoading}>
-                        {isLoading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
+                        {isLoading ? t.login.authenticating : t.login.signIn}
                         {!isLoading && <ArrowRight className="ml-2 h-4 w-4" />}
                     </Button>
                     </form>
@@ -172,7 +176,7 @@ export default function LoginPage() {
             </Card>
 
             <div className="text-center text-xs text-muted-foreground">
-                <p>บัญชีตัวอย่าง: <strong>admin@example.com</strong> / <strong>1234</strong></p>
+                <p>{t.login.sampleAccount}: <strong>admin@example.com</strong> / <strong>1234</strong></p>
             </div>
         </div>
       </div>

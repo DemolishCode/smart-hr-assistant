@@ -1,5 +1,7 @@
 "use client"
 
+export const dynamic = 'force-dynamic'
+
 import { useEffect, useState } from "react"
 import { apiClient } from "@/lib/api-client"
 import {
@@ -13,6 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Users } from "lucide-react"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 interface User {
   id: string
@@ -24,16 +27,10 @@ interface User {
   is_active: boolean
 }
 
-const roleMap: { [key: string]: string } = {
-  "ADMIN": "ผู้ดูแลระบบ",
-  "HR": "ทรัพยากรบุคคล",
-  "MANAGER": "ผู้จัดการ",
-  "EMPLOYEE": "พนักงาน",
-}
-
 export default function EmployeesPage() {
   const [users, setUsers] = useState<User[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const { t } = useLanguage()
 
   useEffect(() => {
     async function fetchUsers() {
@@ -53,8 +50,8 @@ export default function EmployeesPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-            <h1 className="text-3xl font-bold tracking-tight">รายชื่อพนักงาน</h1>
-            <p className="text-muted-foreground mt-1">ดูและจัดการข้อมูลพนักงานทั้งหมดในระบบ</p>
+            <h1 className="text-3xl font-bold tracking-tight">{t.employees.title}</h1>
+            <p className="text-muted-foreground mt-1">{t.employees.description}</p>
         </div>
       </div>
 
@@ -64,24 +61,24 @@ export default function EmployeesPage() {
                 <Users className="h-5 w-5" />
             </div>
             <div>
-                <CardTitle>พนักงานทั้งหมด</CardTitle>
-                <CardDescription>รวม {users.length} คน</CardDescription>
+                <CardTitle>{t.employees.allEmployees}</CardTitle>
+                <CardDescription>{t.employees.total} {users.length} {t.employees.people}</CardDescription>
             </div>
         </CardHeader>
         <CardContent>
             {isLoading ? (
-                <div className="text-center py-8 text-muted-foreground">กำลังโหลดข้อมูล...</div>
+                <div className="text-center py-8 text-muted-foreground">{t.employees.loading}</div>
             ) : (
                 <div className="rounded-md border overflow-hidden">
                 <Table>
                 <TableHeader>
                     <TableRow className="bg-muted/50">
-                    <TableHead className="w-12">ลำดับ</TableHead>
-                    <TableHead>ชื่อ-นามสกุล</TableHead>
-                    <TableHead>อีเมล</TableHead>
-                    <TableHead>แผนก</TableHead>
-                    <TableHead>บทบาท</TableHead>
-                    <TableHead>สถานะ</TableHead>
+                    <TableHead className="w-12">{t.employees.table.no}</TableHead>
+                    <TableHead>{t.employees.table.fullName}</TableHead>
+                    <TableHead>{t.employees.table.email}</TableHead>
+                    <TableHead>{t.employees.table.department}</TableHead>
+                    <TableHead>{t.employees.table.role}</TableHead>
+                    <TableHead>{t.employees.table.status}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -93,12 +90,12 @@ export default function EmployeesPage() {
                         <TableCell>{user.department || "-"}</TableCell>
                         <TableCell>
                             <Badge variant={user.role === "ADMIN" ? "destructive" : "secondary"}>
-                                {roleMap[user.role] || user.role}
+                                {t.roles[user.role as keyof typeof t.roles] || user.role}
                             </Badge>
                         </TableCell>
                         <TableCell>
                             <Badge variant={user.is_active ? "outline" : "secondary"} className={user.is_active ? "text-green-600 border-green-600" : ""}>
-                                {user.is_active ? "ใช้งาน" : "ปิดใช้งาน"}
+                                {user.is_active ? t.employees.status.active : t.employees.status.inactive}
                             </Badge>
                         </TableCell>
                     </TableRow>

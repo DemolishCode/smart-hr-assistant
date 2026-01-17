@@ -1,8 +1,17 @@
+"use client"
+
+export const dynamic = 'force-dynamic'
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, MessageSquare, FileUp, Users } from "lucide-react";
+import { ArrowRight, MessageSquare, FileUp, Users } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Home() {
+  const { t } = useLanguage();
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       {/* Header */}
@@ -11,14 +20,16 @@ export default function Home() {
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground font-bold">
             H
           </div>
-          <span className="text-xl font-bold">Smart HR</span>
+          <span className="text-xl font-bold">{t.common.appName}</span>
         </div>
-        <div className="flex gap-4">
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher />
+          <ModeToggle />
           <Link href="/login">
-            <Button variant="ghost">เข้าสู่ระบบ</Button>
+            <Button variant="ghost">{t.common.login}</Button>
           </Link>
           <Link href="/login">
-            <Button>เริ่มต้นใช้งาน</Button>
+            <Button>{t.common.getStarted}</Button>
           </Link>
         </div>
       </header>
@@ -27,20 +38,20 @@ export default function Home() {
       <main className="flex-1">
         <section className="py-20 px-6 text-center max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight leading-tight">
-            ยกระดับงาน HR ด้วย <br className="hidden sm:block" /><span className="text-primary">ปัญญาประดิษฐ์</span>
+            {t.landing.heroTitle} <br className="hidden sm:block" /><span className="text-primary">{t.landing.heroHighlight}</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            วิเคราะห์ Resume อัตโนมัติ ตอบคำถามนโยบายได้ทันที และจัดการข้อมูลพนักงานอย่างมีประสิทธิภาพ ด้วยระบบ HR แห่งอนาคต
+            {t.landing.heroDescription}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/login">
               <Button size="lg" className="h-12 px-8 text-base gap-2 w-full sm:w-auto shadow-lg hover:shadow-xl transition-all">
-                เข้าสู่ระบบ <ArrowRight className="h-5 w-5" />
+                {t.common.login} <ArrowRight className="h-5 w-5" />
               </Button>
             </Link>
             <Link href="https://github.com" target="_blank">
                <Button size="lg" variant="outline" className="h-12 px-8 text-base w-full sm:w-auto">
-                 ดูใน GitHub
+                 GitHub
                </Button>
             </Link>
           </div>
@@ -51,18 +62,18 @@ export default function Home() {
            <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-6">
               <FeatureCard 
                 icon={MessageSquare}
-                title="แชทบอท AI" 
-                desc="ตอบคำถามพนักงานเกี่ยวกับลา สวัสดิการ และนโยบายบริษัทได้ทันที ด้วยเทคโนโลยี RAG"
+                title={t.landing.features.chatbot.title}
+                desc={t.landing.features.chatbot.description}
               />
               <FeatureCard 
                 icon={FileUp}
-                title="วิเคราะห์ Resume อัจฉริยะ" 
-                desc="อัปโหลด Resume แบบ PDF แล้วให้ AI ดึงข้อมูลทักษะ ประสบการณ์ และรายละเอียดผู้สมัครโดยอัตโนมัติ"
+                title={t.landing.features.resume.title}
+                desc={t.landing.features.resume.description}
               />
               <FeatureCard 
                 icon={Users}
-                title="แดชบอร์ดพนักงาน" 
-                desc="ศูนย์กลางข้อมูลพนักงาน พร้อมระบบควบคุมสิทธิ์และจัดการข้อมูลแบบ Real-time"
+                title={t.landing.features.dashboard.title}
+                desc={t.landing.features.dashboard.description}
               />
            </div>
         </section>
@@ -70,7 +81,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-8 text-center text-muted-foreground text-sm border-t">
-        © 2024 Smart HR Assistant สงวนลิขสิทธิ์ | ขับเคลื่อนด้วย Next.js & FastAPI
+        {t.landing.footer}
       </footer>
     </div>
   );

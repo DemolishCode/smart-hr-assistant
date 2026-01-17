@@ -5,6 +5,7 @@ import { useAuthStore } from "@/stores/useAuthStore"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { ModeToggle } from "@/components/mode-toggle"
+import { LanguageSwitcher } from "@/components/language-switcher"
 
 export default function DashboardLayout({
   children,
@@ -46,6 +47,7 @@ export default function DashboardLayout({
                     <p className="text-xs text-muted-foreground">{user?.email}</p>
                 </div>
                 <div className="h-8 w-[1px] bg-border hidden sm:block"></div>
+                <LanguageSwitcher />
                 <ModeToggle />
              </div>
         </header>

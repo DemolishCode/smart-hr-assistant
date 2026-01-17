@@ -15,19 +15,20 @@ import { Button } from "@/components/ui/button"
 import { useAuthStore } from "@/stores/useAuthStore"
 import { useRouter } from "next/navigation"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { useState } from "react"
-
-const sidebarItems = [
-  { icon: LayoutDashboard, label: "แดชบอร์ด", href: "/dashboard" },
-  { icon: Users, label: "พนักงาน", href: "/dashboard/employees" },
-  { icon: MessageSquare, label: "แชท AI", href: "/chat" },
-  { icon: FileUp, label: "อัปโหลด Resume", href: "/dashboard/resumes" },
-]
+import { useLanguage } from "@/contexts/LanguageContext"
 
 export function DashboardSidebar() {
   const pathname = usePathname()
   const { logout } = useAuthStore()
   const router = useRouter()
+  const { t } = useLanguage()
+
+  const sidebarItems = [
+    { icon: LayoutDashboard, label: t.sidebar.dashboard, href: "/dashboard" },
+    { icon: Users, label: t.sidebar.employees, href: "/dashboard/employees" },
+    { icon: MessageSquare, label: t.sidebar.aiChat, href: "/chat" },
+    { icon: FileUp, label: t.sidebar.resumeUpload, href: "/dashboard/resumes" },
+  ]
 
   const handleLogout = () => {
     logout()
@@ -41,7 +42,7 @@ export function DashboardSidebar() {
             H
         </div>
         <h1 className="text-xl font-bold tracking-tight">
-           Smart HR
+           {t.common.appName}
         </h1>
       </div>
 
@@ -74,7 +75,7 @@ export function DashboardSidebar() {
             onClick={handleLogout}
         >
           <LogOut className="h-4 w-4" />
-          ออกจากระบบ
+          {t.sidebar.logout}
         </Button>
       </div>
     </div>
@@ -82,6 +83,8 @@ export function DashboardSidebar() {
 }
 
 export function MobileSidebar() {
+    const { t } = useLanguage()
+    
     return (
         <Sheet>
             <SheetTrigger asChild>

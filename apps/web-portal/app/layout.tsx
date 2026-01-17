@@ -18,9 +18,8 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from "@/components/theme-provider"
+import { LanguageProvider } from "@/contexts/LanguageContext"
 import { Toaster } from "@/components/ui/sonner"
-
-// ... imports
 
 export default function RootLayout({
   children,
@@ -38,8 +37,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
-            <Toaster />
+            <LanguageProvider>
+              {children}
+              <Toaster />
+            </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,0 +1,147 @@
+{
+  "common": {
+    "appName": "Smart HR",
+    "login": "เข้าสู่ระบบ",
+    "logout": "ออกจากระบบ",
+    "getStarted": "เริ่มต้นใช้งาน",
+    "loading": "กำลังโหลด...",
+    "error": "เกิดข้อผิดพลาด",
+    "success": "สำเร็จ",
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "confirm": "ยืนยัน",
+    "back": "กลับ",
+    "next": "ถัดไป",
+    "search": "ค้นหา",
+    "noData": "ไม่มีข้อมูล"
+  },
+  "landing": {
+    "heroTitle": "ยกระดับงาน HR ด้วย",
+    "heroHighlight": "ปัญญาประดิษฐ์",
+    "heroDescription": "วิเคราะห์ Resume อัตโนมัติ ตอบคำถามนโยบายได้ทันที และจัดการข้อมูลพนักงานอย่างมีประสิทธิภาพ ด้วยระบบ HR แห่งอนาคต",
+    "features": {
+      "chatbot": {
+        "title": "แชทบอท AI",
+        "description": "ตอบคำถามพนักงานเกี่ยวกับลา สวัสดิการ และนโยบายบริษัทได้ทันที ด้วยเทคโนโลยี RAG"
+      },
+      "resume": {
+        "title": "วิเคราะห์ Resume อัจฉริยะ",
+        "description": "อัปโหลด Resume แบบ PDF แล้วให้ AI ดึงข้อมูลทักษะ ประสบการณ์ และรายละเอียดผู้สมัครโดยอัตโนมัติ"
+      },
+      "dashboard": {
+        "title": "แดชบอร์ดพนักงาน",
+        "description": "ศูนย์กลางข้อมูลพนักงาน พร้อมระบบควบคุมสิทธิ์และจัดการข้อมูลแบบ Real-time"
+      }
+    },
+    "footer": "© 2024 Smart HR Assistant สงวนลิขสิทธิ์"
+  },
+  "login": {
+    "welcomeBack": "ยินดีต้อนรับกลับ",
+    "enterCredentials": "กรอกข้อมูลเพื่อเข้าสู่ระบบ",
+    "email": "อีเมล",
+    "password": "รหัสผ่าน",
+    "forgotPassword": "ลืมรหัสผ่าน?",
+    "signIn": "เข้าสู่ระบบ",
+    "authenticating": "กำลังเข้าสู่ระบบ...",
+    "loginFailed": "เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจสอบข้อมูลอีกครั้ง",
+    "sampleAccount": "บัญชีตัวอย่าง",
+    "features": {
+      "resume": "วิเคราะห์ Resume ด้วย AI",
+      "policy": "ตอบคำถามนโยบาย (RAG)",
+      "secure": "ฐานข้อมูลพนักงานปลอดภัย"
+    },
+    "heroTitle": "จัดการทรัพยากรบุคคล ด้วย",
+    "heroHighlight": "ปัญญาประดิษฐ์",
+    "heroDescription": "สัมผัสประสบการณ์ระบบ HR รุ่นใหม่ วิเคราะห์ Resume อัตโนมัติ ตอบคำถามนโยบายฉับไว และจัดการข้อมูลพนักงานได้อย่างมีประสิทธิภาพ"
+  },
+  "sidebar": {
+    "dashboard": "แดชบอร์ด",
+    "employees": "พนักงาน",
+    "aiChat": "แชท AI",
+    "resumeUpload": "อัปโหลด Resume",
+    "logout": "ออกจากระบบ"
+  },
+  "dashboard": {
+    "hello": "สวัสดี",
+    "welcomeMessage": "ยินดีต้อนรับสู่ระบบ Smart HR Assistant",
+    "yourInfo": "ข้อมูลของคุณ",
+    "email": "อีเมล",
+    "role": "บทบาท",
+    "department": "แผนก",
+    "position": "ตำแหน่ง",
+    "quickActions": {
+      "manageEmployees": {
+        "title": "จัดการพนักงาน",
+        "description": "ดูรายชื่อและข้อมูลพนักงานทั้งหมด"
+      },
+      "chatAI": {
+        "title": "แชทกับ AI",
+        "description": "ถามข้อมูลนโยบายและคำถามทั่วไป"
+      },
+      "analyzeResume": {
+        "title": "วิเคราะห์ Resume",
+        "description": "อัปโหลดและดึงข้อมูลจาก Resume"
+      }
+    },
+    "backToLogin": "กลับหน้าเข้าสู่ระบบ",
+    "loadingUser": "กำลังโหลดข้อมูล..."
+  },
+  "employees": {
+    "title": "รายชื่อพนักงาน",
+    "description": "ดูและจัดการข้อมูลพนักงานทั้งหมดในระบบ",
+    "allEmployees": "พนักงานทั้งหมด",
+    "total": "รวม",
+    "people": "คน",
+    "table": {
+      "no": "ลำดับ",
+      "fullName": "ชื่อ-นามสกุล",
+      "email": "อีเมล",
+      "department": "แผนก",
+      "role": "บทบาท",
+      "status": "สถานะ"
+    },
+    "status": {
+      "active": "ใช้งาน",
+      "inactive": "ปิดใช้งาน"
+    },
+    "loading": "กำลังโหลดข้อมูล..."
+  },
+  "resumes": {
+    "title": "วิเคราะห์ Resume",
+    "description": "อัปโหลดไฟล์ Resume (PDF) เพื่อให้ AI ดึงข้อมูลและทักษะโดยอัตโนมัติ",
+    "uploadFile": "อัปโหลดไฟล์",
+    "pdfOnly": "รองรับไฟล์ PDF เท่านั้น",
+    "chooseFile": "เลือกไฟล์",
+    "noFileSelected": "ยังไม่ได้เลือกไฟล์",
+    "processing": "กำลังประมวลผลด้วย AI...",
+    "uploadFailed": "อัปโหลดไม่สำเร็จ กรุณาลองใหม่อีกครั้ง",
+    "uploading": "กำลังอัปโหลด...",
+    "startParsing": "เริ่มวิเคราะห์",
+    "result": {
+      "title": "วิเคราะห์สำเร็จ",
+      "fullName": "ชื่อ-นามสกุล",
+      "email": "อีเมล",
+      "experience": "ประสบการณ์ทำงาน",
+      "years": "ปี",
+      "estimated": "(ประมาณการ)",
+      "detectedSkills": "ทักษะที่พบ",
+      "resultId": "รหัสผลลัพธ์",
+      "notFound": "ไม่พบข้อมูล"
+    }
+  },
+  "chat": {
+    "title": "HR Assistant AI",
+    "description": "ถามคำถามเกี่ยวกับนโยบายหรือข้อมูลทั่วไปได้เลย",
+    "noMessages": "ยังไม่มีข้อความ",
+    "startConversation": "เริ่มต้นสนทนาโดยพิมพ์คำถามด้านล่าง",
+    "thinking": "AI กำลังคิดคำตอบ...",
+    "placeholder": "พิมพ์ข้อความของคุณ...",
+    "error": "ขออภัย เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง"
+  },
+  "roles": {
+    "ADMIN": "ผู้ดูแลระบบ",
+    "HR": "ทรัพยากรบุคคล",
+    "MANAGER": "ผู้จัดการ",
+    "EMPLOYEE": "พนักงาน"
+  }
+}
