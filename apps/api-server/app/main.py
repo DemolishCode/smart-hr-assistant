@@ -1,0 +1,41 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
+import os
+import sys
+
+# Add app to path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from app.api.v1.endpoints import auth
+
+app = FastAPI(
+    title="Smart HR Assistant API",
+    description="API for Smart HR Assistant with AI capabilities",
+    version="1.0.0"
+)
+
+# CORS
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include Routers
+app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to Smart HR Assistant API"}
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
