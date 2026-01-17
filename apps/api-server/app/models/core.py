@@ -24,7 +24,7 @@ class User(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 
     department: Mapped[Optional["Department"]] = relationship("Department", foreign_keys=[department_id], back_populates="members")
-    managed_department: Mapped[Optional["Department"]] = relationship("Department", back_populates="manager", uselist=False)
+    managed_department: Mapped[Optional["Department"]] = relationship("Department", foreign_keys="[Department.manager_id]", back_populates="manager", uselist=False)
 
 import uuid
 
