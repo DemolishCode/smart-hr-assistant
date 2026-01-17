@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   description: "AI-powered HR platform with chat and resume parsing",
 };
 
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
+
+// ... imports
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,9 +30,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        {children}
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

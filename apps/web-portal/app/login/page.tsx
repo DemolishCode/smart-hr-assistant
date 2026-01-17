@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -16,11 +17,12 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { apiClient } from "@/lib/api-client"
 import { useAuthStore } from "@/stores/useAuthStore"
+import { ModeToggle } from "@/components/mode-toggle"
+import { ArrowRight, Bot, CheckCircle2 } from "lucide-react"
 
-// Define Schema
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1, "Password is required"),
@@ -43,12 +45,6 @@ export default function LoginPage() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true)
     setError(null)
-    
-    // NOTE: In the backend, we use OAuth2PasswordRequestForm which expects 'username' and 'password' form-data
-    // So we need to encode it as form-data or adjust the call.
-    // The previous test script sent 'username' in body. Let's see how our backend auth.py handles it.
-    // auth.py: login_access_token(form_data: OAuth2PasswordRequestForm = Depends())
-    // This expects x-www-form-urlencoded data with 'username' and 'password'.
     
     const formData = new URLSearchParams()
     formData.append('username', values.email)
@@ -75,57 +71,128 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-gray-50">
-      <Card className="w-[400px] shadow-lg">
-        <CardHeader>
-          <CardTitle className="text-2xl text-center">Smart HR Assistant</CardTitle>
-          <CardDescription className="text-center">
-            Login to access your dashboard
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="admin@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="••••••" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              {error && (
-                <div className="text-sm text-red-500 text-center font-medium">
-                  {error}
+    <div className="min-h-screen w-full flex bg-background">
+      {/* Left Side - Hero/Info */}
+      <div className="hidden lg:flex w-1/2 bg-sidebar text-sidebar-foreground p-12 flex-col justify-between border-r border-sidebar-border relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-sidebar-primary/10 to-transparent pointer-events-none" />
+        
+        <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-8">
+                <div className="h-10 w-10 bg-primary rounded-xl flex items-center justify-center text-primary-foreground font-bold text-xl shadow-lg">
+                    H
                 </div>
-              )}
+                <span className="text-2xl font-bold tracking-tight">Smart HR</span>
+            </div>
+            
+            <h1 className="text-4xl font-extrabold leading-tight mb-6">
+                Manage your workforce with <br/>
+                <span className="text-primary">Artificial Intelligence</span>
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-md">
+                Experience the next generation of HR management. Automated resume parsing, intelligent policy chat, and seamless employee data management.
+            </p>
+        </div>
 
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Logging in..." : "Login"}
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+        <div className="relative z-10 space-y-6">
+            <FeatureItem text="AI-Powered Resume Analysis" />
+            <FeatureItem text="Instant Policy Answers (RAG)" />
+            <FeatureItem text="Secure Employee Database" />
+        </div>
+
+        <div className="relative z-10 text-sm text-muted-foreground">
+            © 2024 Smart HR Assistant. All rights reserved.
+        </div>
+      </div>
+
+      {/* Right Side - Login Form */}
+      <div className="flex-1 flex flex-col items-center justify-center p-8 relative">
+        <div className="absolute top-8 right-8">
+            <ModeToggle />
+        </div>
+
+        <div className="w-full max-w-sm space-y-8">
+            <div className="text-center lg:text-left">
+                <h2 className="text-2xl font-bold tracking-tight">Welcome back</h2>
+                <p className="text-sm text-muted-foreground mt-2">
+                    Enter your credentials to access your account
+                </p>
+            </div>
+
+            <Card className="border-border/50 shadow-xl bg-card/50 backdrop-blur-sm">
+                <CardHeader className="space-y-1">
+                    {/* <CardTitle className="text-2xl">Login</CardTitle> */}
+                </CardHeader>
+                <CardContent>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                            <Input placeholder="name@example.com" {...field} className="h-11" />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                        <FormItem>
+                            <div className="flex items-center justify-between">
+                                <FormLabel>Password</FormLabel>
+                                <Link href="#" className="text-xs text-primary hover:underline">
+                                    Forgot password?
+                                </Link>
+                            </div>
+                            <FormControl>
+                            <Input type="password" placeholder="••••••••" {...field} className="h-11" />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                    
+                    {error && (
+                        <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm font-medium text-center">
+                        {error}
+                        </div>
+                    )}
+
+                    <Button type="submit" className="w-full h-11 text-base shadow-lg hover:shadow-xl transition-all" disabled={isLoading}>
+                        {isLoading ? "Authenticating..." : "Sign In"}
+                        {!isLoading && <ArrowRight className="ml-2 h-4 w-4" />}
+                    </Button>
+                    </form>
+                </Form>
+                </CardContent>
+                {/* <CardFooter className="flex justify-center border-t p-4">
+                    <p className="text-xs text-muted-foreground">
+                        Don't have an account? <Link href="#" className="underline text-primary">Contact Admin</Link>
+                    </p>
+                </CardFooter> */}
+            </Card>
+
+            <div className="text-center text-xs text-muted-foreground">
+                <p>Default Admin: <strong>admin@example.com</strong> / <strong>1234</strong></p>
+            </div>
+        </div>
+      </div>
     </div>
   )
+}
+
+function FeatureItem({ text }: { text: string }) {
+    return (
+        <div className="flex items-center gap-3">
+            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                <CheckCircle2 className="h-4 w-4" />
+            </div>
+            <span className="font-medium">{text}</span>
+        </div>
+    )
 }

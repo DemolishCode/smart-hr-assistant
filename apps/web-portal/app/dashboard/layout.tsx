@@ -4,6 +4,7 @@ import { DashboardSidebar, MobileSidebar } from "@/components/layout/DashboardSi
 import { useAuthStore } from "@/stores/useAuthStore"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { ModeToggle } from "@/components/mode-toggle"
 
 export default function DashboardLayout({
   children,
@@ -24,24 +25,36 @@ export default function DashboardLayout({
   if (!isMounted || !isAuthenticated) return null
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-muted/40 transition-colors duration-300">
       {/* Sidebar for Desktop */}
-      <div className="hidden md:block">
+      <div className="hidden md:block h-full">
         <DashboardSidebar />
       </div>
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Mobile Header */}
-        <header className="bg-white border-b p-4 md:hidden flex items-center justify-between">
-             <span className="font-bold">Smart HR</span>
-            <MobileSidebar />
+        {/* Header */}
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 shadow-sm">
+             <MobileSidebar />
+             
+             {/* Flexible Spacer */}
+             <div className="flex-1"></div>
+             
+             {/* Right Side Actions */}
+             <div className="flex items-center gap-4">
+                <div className="text-sm text-right hidden sm:block">
+                    <p className="font-medium leading-none">{user?.full_name}</p>
+                    <p className="text-xs text-muted-foreground">{user?.email}</p>
+                </div>
+                <div className="h-8 w-[1px] bg-border hidden sm:block"></div>
+                <ModeToggle />
+             </div>
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-auto p-8">
-            <div className="max-w-7xl mx-auto">
-             {children}
-            </div>
+        <main className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">
+             <div className="mx-auto max-w-7xl animate-in fade-in slide-in-from-bottom-4 duration-500">
+                {children}
+             </div>
         </main>
       </div>
     </div>

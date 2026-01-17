@@ -35,9 +35,12 @@ export function DashboardSidebar() {
   }
 
   return (
-    <div className="flex flex-col h-full bg-slate-900 text-white w-64 p-4">
-      <div className="mb-8 px-2">
-        <h1 className="text-xl font-bold flex items-center gap-2">
+    <div className="flex flex-col h-full bg-sidebar border-r border-sidebar-border w-64 p-4 text-sidebar-foreground">
+      <div className="mb-8 px-2 flex items-center gap-2">
+        <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground font-bold">
+            H
+        </div>
+        <h1 className="text-xl font-bold tracking-tight">
            Smart HR
         </h1>
       </div>
@@ -51,26 +54,26 @@ export function DashboardSidebar() {
               key={item.href} 
               href={item.href}
               className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200",
                 isActive 
-                  ? "bg-slate-800 text-white" 
-                  : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-sm" 
+                  : "text-muted-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
               )}
             >
-              <item.icon className="h-5 w-5" />
+              <item.icon className="h-4 w-4" />
               {item.label}
             </Link>
           )
         })}
       </nav>
 
-      <div className="pt-4 border-t border-slate-800">
+      <div className="pt-4 border-t border-sidebar-border mt-auto">
         <Button 
             variant="ghost" 
-            className="w-full justify-start text-slate-400 hover:text-white hover:bg-slate-800 gap-3"
+            className="w-full justify-start text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent gap-3"
             onClick={handleLogout}
         >
-          <LogOut className="h-5 w-5" />
+          <LogOut className="h-4 w-4" />
           Logout
         </Button>
       </div>
@@ -83,10 +86,10 @@ export function MobileSidebar() {
         <Sheet>
             <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
-                    <Menu className="h-6 w-6" />
+                    <Menu className="h-5 w-5" />
                 </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-0 bg-slate-900 border-none w-64 text-white">
+            <SheetContent side="left" className="p-0 border-r border-sidebar-border bg-sidebar w-64 text-sidebar-foreground">
                 <DashboardSidebar />
             </SheetContent>
         </Sheet>
